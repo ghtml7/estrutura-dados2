@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int ternary_search(int arr[], int left, int right, int target) {
+    if (right >= left) {
+        int mid1 = left + (right - left) / 3;
+        int mid2 = right - (right - left) / 3;
+
+        // Se o elemento estiver em uma das posições mid1 ou mid2
+        if (arr[mid1] == target)
+            return mid1;
+        if (arr[mid2] == target)
+            return mid2;
+
+        // Se o elemento estiver à esquerda de mid1
+        if (target < arr[mid1])
+            return ternary_search(arr, left, mid1 - 1, target);
+
+        // Se o elemento estiver entre mid1 e mid2
+        if (target > arr[mid1] && target < arr[mid2])
+            return ternary_search(arr, mid1 + 1, mid2 - 1, target);
+
+        // Se o elemento estiver à direita de mid2
+        return ternary_search(arr, mid2 + 1, right, target);
+    }
+
+    return -1;  // Elemento não encontrado
+}
+
+int main() {
+    int arr[] = {1, 5, 10, 12, 18, 22, 30};
+    int target = 12;
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    int result = ternary_search(arr, 0, size - 1, target);
+    if (result != -1)
+        printf("Elemento %d encontrado no índice %d\n", target, result);
+    else
+        printf("Elemento não encontrado\n");
+
+    return 0;
+}

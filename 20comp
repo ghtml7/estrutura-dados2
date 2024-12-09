@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Funções de busca e ordenação aqui (Binary Search, Merge Sort, etc.)
+
+int main() {
+    int choice, size, target;
+    printf("Escolha um algoritmo:\n");
+    printf("1. Binary Search\n");
+    printf("2. Merge Sort\n");
+    printf("3. Quick Sort\n");
+    printf("Escolha: ");
+    scanf("%d", &choice);
+
+    printf("Digite o tamanho da lista: ");
+    scanf("%d", &size);
+    
+    int arr[size];
+    
+    // Preencher a lista com dados aleatórios
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % 100; // Números aleatórios entre 0 e 100
+    }
+    
+    clock_t start_time = clock();
+    
+    // Chamar a função de busca ou ordenação com base na escolha do usuário
+    if (choice == 1) {
+        printf("Digite o elemento a ser buscado: ");
+        scanf("%d", &target);
+        int index = binary_search(arr, size, target);
+        printf("Resultado: %d\n", index);
+    } else if (choice == 2) {
+        merge_sort(arr, 0, size - 1);
+    } else {
+        quick_sort(arr, 0, size - 1);
+    }
+    
+    clock_t end_time = clock();
+    double time_taken = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+    printf("Tempo de execução: %.6f segundos\n", time_taken);
+    
+    return 0;
+}

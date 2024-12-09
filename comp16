@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    int isbn;
+    char title[100];
+    char author[100];
+} Book;
+
+int binary_search(Book books[], int size, int target_isbn) {
+    int left = 0, right = size - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (books[mid].isbn == target_isbn) {
+            return mid; // ISBN encontrado
+        } else if (books[mid].isbn < target_isbn) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    
+    return -1; // ISBN não encontrado
+}
+
+int main() {
+    Book books[] = {
+        {1001, "The Great Gatsby", "F. Scott Fitzgerald"},
+        {1002, "1984", "George Orwell"},
+        {1003, "To Kill a Mockingbird", "Harper Lee"},
+        {1004, "The Catcher in the Rye", "J.D. Salinger"}
+    };
+    int target_isbn = 1003;
+    int size = sizeof(books) / sizeof(books[0]);
+    
+    int result = binary_search(books, size, target_isbn);
+    if (result != -1) {
+        printf("Livro encontrado: %s, Autor: %s\n", books[result].title, books[result].author);
+    } else {
+        printf("Livro com ISBN %d não encontrado.\n", target_isbn);
+    }
+    
+    return 0;
+}

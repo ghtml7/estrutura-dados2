@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+int binary_search(int arr[], int left, int right, int target) {
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (arr[mid] == target)
+            return mid;
+        else if (arr[mid] < target)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return -1;
+}
+
+int exponential_search(int arr[], int size, int target) {
+    if (arr[0] == target)
+        return 0;
+
+    int i = 1;
+    while (i < size && arr[i] <= target)
+        i = i * 2;
+
+    return binary_search(arr, i / 2, i < size ? i : size - 1, target);
+}
+
+int main() {
+    int arr[] = {1, 5, 10, 12, 18, 22, 30};
+    int target = 12;
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    int result = exponential_search(arr, size, target);
+    if (result != -1)
+        printf("Elemento %d encontrado no índice %d\n", target, result);
+    else
+        printf("Elemento não encontrado\n");
+
+    return 0;
+}

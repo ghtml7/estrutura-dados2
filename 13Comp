@@ -1,0 +1,43 @@
+# Funções de ordenação (já implementadas anteriormente)
+def compare_sort_algorithms(arr):
+    results = []
+
+    # Shell Sort
+    start_time = time.time()
+    shell_sort(arr.copy())
+    results.append(("Shell Sort", time.time() - start_time))
+
+    # Merge Sort
+    start_time = time.time()
+    merge_sort(arr.copy())
+    results.append(("Merge Sort", time.time() - start_time))
+
+    # Selection Sort
+    start_time = time.time()
+    selection_sort(arr.copy())
+    results.append(("Selection Sort", time.time() - start_time))
+
+    # Quick Sort
+    start_time = time.time()
+    quick_sort(arr.copy())
+    results.append(("Quick Sort", time.time() - start_time))
+
+    # Bucket Sort
+    start_time = time.time()
+    bucket_sort(arr.copy())
+    results.append(("Bucket Sort", time.time() - start_time))
+
+    # Radix Sort
+    start_time = time.time()
+    radix_sort(arr.copy())
+    results.append(("Radix Sort", time.time() - start_time))
+
+    return results
+
+# Gerando uma lista de tamanho variável
+for size in arr_sizes:
+    arr = [random.randint(1, 10000) for _ in range(size)]
+    print(f"Comparando algoritmos de ordenação para lista de tamanho {size}:")
+    sort_results = compare_sort_algorithms(arr)
+    for result in sort_results:
+        print(f"{result[0]}: {result[1]:.6f} segundos")
